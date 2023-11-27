@@ -34,24 +34,30 @@ module.exports = {
   },
     // updates a user
     async updateUser(req, res) {
-        try{
-            const dbUserData = await User.update(req.body);
-            res.json(dbUserData);
-        } catch (err) {
-            res.status(500).json(err)
-        }
-},
+      try {
+        const updatedUser = await User.findOneAndUpdate(
+          { _id: req.params.userId },
+          req.body,
+          { new: true } // To get the updated user data back
+        );
+        res.json(updatedUser);
+      } catch (err) {
+        res.status(500).json(err);
+      }
+    },
 
     //deletes a user
     async deleteUser(req, res) {
-        try{
-            const dbUserdata = await User.delete(req.body);
-            res.json(dbUserData);
-        } catch (err) {
-            res.status(500).json(err)
-        }
-    }
+      try {
+          const deletedUser = await User.findOneAndDelete({ _id: req.params.userId });
+  
+          if (!deletedUser) {
+              return res.status(404).json({ message: 'No user found with that ID' });
+          }
+  
+          res.json({ message: 'User deleted successfully', deletedUser });
+      } catch (err) {
+          res.status(500).json(err);
+      }
+  }
 };
-    
-    
-    ;
