@@ -1,6 +1,8 @@
+// Purpose: to control the thoughts
 const Thought = require('../models/thought');
 
 module.exports = {
+    // gets all thoughts
     async getAllThoughts(req, res) {
         try {
             const thoughts = await Thought.find();
@@ -9,6 +11,7 @@ module.exports = {
             res.status(500).json(err);
         }
     },
+    // gets one thought by id
     async getSingleThought(req, res) {
         try {
             const singleThought = await Thought.findOne({ _id: req.params.thoughtId });

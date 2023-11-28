@@ -1,6 +1,8 @@
+// Purpose: To handle all user related routes
 const User = require('../models/user');
 
 module.exports = {
+  // gets all users
   async getUsers(req, res) {
     try {
       const users = await User.find();
@@ -9,7 +11,7 @@ module.exports = {
       res.status(500).json(err);
     }
   },
-  // get a single user by ID
+  // gets a single user by ID
   async getSingleUser(req, res) {
     try {
       const user = await User.findOne({ _id: req.params.userId });
