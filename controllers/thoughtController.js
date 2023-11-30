@@ -80,17 +80,4 @@ module.exports = {
             res.status(500).json(err);
         }
     },
-    async getReaction(req, res) {
-        try {
-            const reactionData = await Thought.findOne(
-                { _id: req.params.thoughtId }, // Filter for the specific thought by its ID
-                { reactions: { $elemMatch: { _id: req.params.reactionId } } } // Return the specified reaction
-            );
-            console.log(reactionData);
-            res.json(reactionData);
-        } catch (err) {
-            res.status(500).json(err);
-        }
-    }
-    
 };
