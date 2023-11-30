@@ -56,6 +56,7 @@ module.exports = {
             res.status(500).json(err);
         }
     },
+    //adds a reaction
     async addReaction(req, res) {
         try {
             const addReactionData = await Thought.findOneAndUpdate(
@@ -68,6 +69,7 @@ module.exports = {
             res.status(500).json(err);
         }
     },
+    //removes a reaction
     async deleteReaction(req, res) {
         try {
             const updatedThought = await Thought.findOneAndUpdate(
