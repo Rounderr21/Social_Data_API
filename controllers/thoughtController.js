@@ -70,14 +70,27 @@ module.exports = {
     },
     async deleteReaction(req, res) {
         try {
-            const deleteReactionData = await Thought.findOneAndUpdate(
-                { _id: req.params.thoughtId }, // Query for the specific thought by its ID
-                { $pull: { reactions: { reactionId: req.params.reactionId } } }, // Updated data
-                { new: true } // Return the updated thought
+            const updatedThought = await Thought.findOneAndUpdate(
+                { _id: req.params.thoughtId }, // Filter for the specific thought by its ID
+                { $pull: { reactions: { _id: req.params.reactionId } } }, // Remove the specified reaction
             );
-            res.json(deleteReactionData);
+            console.log(updatedThought);
+            res.json(updatedThought);
         } catch (err) {
             res.status(500).json(err);
         }
     },
+    async getReaction(req, res) {
+        try {
+            const reactionData = await Thought.findOne(
+                { _id: req.params.thoughtId }, // Filter for the specific thought by its ID
+                { reactions: { $elemMatch: { _id: req.params.reactionId } } } // Return the specified reaction
+            );
+            console.log(reactionData);
+            res.json(reactionData);
+        } catch (err) {
+            res.status(500).json(err);
+        }
+    }
+    
 };
