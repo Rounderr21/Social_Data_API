@@ -74,7 +74,6 @@ module.exports = {
                 { _id: req.params.thoughtId }, // Filter for the specific thought by its ID
                 { $pull: { reactions: { _id: req.params.reactionId } } }, // Remove the specified reaction
             );
-            console.log(updatedThought);
             res.json(updatedThought);
         } catch (err) {
             res.status(500).json(err);
